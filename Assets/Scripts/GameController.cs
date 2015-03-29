@@ -7,20 +7,35 @@ public class GameController : MonoBehaviour {
 	public Material wallMaterial;
 	public int countWals = 10;
 	public static int points;
+	public Text ScoreText;
+	public Text HealthText;
+	public GameObject apple;
+	public Animator anim;
 
 	private int _lastPonts = -1;
-	public Text ScoreText;
-	public GameObject apple;
-	
+	private int _lastPlayerHealth = -1;
+	private PlayerController playerController;
+		
 	public void Awake()
 	{
 		points = 0;
+		playerController = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController>();
 		GenerateLevel();
 		GenerateNewFood();
 	}
 	
 	public void Update()
 	{
+		if (playerController.health == 0)
+		{
+			anim.SetTrigger("GameOver");
+			GameManager.Instance.gameOver = true;
+		}
+		if (_lastPlayerHealth != playerController.health) 
+		{
+			_lastPlayerHealth = playerController.health;
+			HealthText.text = _lastPlayerHealth.ToString();
+		}
 		if (_lastPonts == points) return;
 		_lastPonts = points;
 		ScoreText.text = "Score: " + points.ToString ("0000");

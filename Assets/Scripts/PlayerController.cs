@@ -5,13 +5,14 @@ public class PlayerController : MonoBehaviour {
 
 	public float speed = 20;
 	public float rotationSpeed = 60;
-	public Animator anim;
+	public int health;
 
 	private bool touch = false;
 	private Transform current;
 	
 	public void Start()
 	{
+		health = 3;
 		current = transform;
 	}
 	
@@ -42,8 +43,7 @@ public class PlayerController : MonoBehaviour {
 			}
 			else 
 			{
-				anim.SetTrigger("GameOver");
-				GameManager.Instance.gameOver = true;
+				--health;
 			}
 			touch = false;
 		}

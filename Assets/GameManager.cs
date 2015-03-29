@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
 	public bool gameOver = false;
 
 	private static GameManager instance = null;
-	private float restartTime = 5f;
+	private float restartTime = 2.5f;
 	private float time;
 
 	public static GameManager Instance

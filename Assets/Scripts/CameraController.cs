@@ -17,14 +17,14 @@ public class CameraController : MonoBehaviour {
 		{
 			case typeCamera.FIRST_PERSON:
 			{
-				transform.position = target.position + new Vector3(0f,2f,0f);
-				transform.rotation.SetLookRotation(new Vector3(30,0,0));
+				transform.position = target.position + new Vector3(0f,2f,2f);
+				transform.rotation.SetLookRotation(new Vector3(60,0,0));
 				break;
 			}
 			case typeCamera.THIRD_PERSON:
 			{
-				transform.position.Set(0,25,-30);
-				transform.rotation.SetLookRotation(new Vector3(45,0,0));
+				transform.position = new Vector3(0,25,-30);
+				transform.rotation.SetLookRotation(new Vector3(60,0,0));
 				break;
 			}
 		}
