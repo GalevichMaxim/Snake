@@ -11,8 +11,8 @@ public class MainMenu : MonoBehaviour {
 	{
 		gameManager = GameManager.Instance;
 		CameraBtnText = GameObject.FindWithTag ("CameraBtn").GetComponentInChildren<Text> ();
-		CameraBtnText.text = "Camera: from 3rd person";
-		gameManager.curTCamera = typeCamera.THIRD_PERSON;
+		CameraBtnText.text = "Camera: top view";
+		gameManager.curTCamera = typeCamera.TOP_VIEW;
 	}
 
 	public void onClickPlayBtn(string scene)
@@ -24,21 +24,20 @@ public class MainMenu : MonoBehaviour {
 	{
 		switch (gameManager.curTCamera) 
 		{
-			case typeCamera.FIRST_PERSON:
+			case typeCamera.TOP_VIEW:
 				gameManager.curTCamera = typeCamera.THIRD_PERSON;
 				CameraBtnText.text = "Camera: from 3rd person";
 				break;
 
 			case typeCamera.THIRD_PERSON:
-				gameManager.curTCamera = typeCamera.FIRST_PERSON;
-				CameraBtnText.text = "Camera: from 1st person";
+				gameManager.curTCamera = typeCamera.TOP_VIEW;
+				CameraBtnText.text = "Camera: top view";
 				break;
 		}
 	}
 
 	public void onClickExitBtn()
 	{
-		Debug.Log ("Quit");
 		Application.Quit ();
 	}
 }

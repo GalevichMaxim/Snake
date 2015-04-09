@@ -9,15 +9,18 @@ public class TailController : MonoBehaviour {
 	
 	public void Update()
 	{
-		Vector3 direction = target.position - transform.position;
-
-		float distance = direction.magnitude;
-		
-		if (distance > targetDistance)
+		if( target )
 		{
-			transform.position += direction.normalized * (distance - targetDistance);
+			Vector3 direction = target.position - transform.position;
 
-			transform.LookAt(target);
+			float distance = direction.magnitude;
+			
+			if (distance > targetDistance)
+			{
+				transform.position += direction.normalized * (distance - targetDistance);
+
+				transform.LookAt(target);
+			}
 		}
 	}
 }

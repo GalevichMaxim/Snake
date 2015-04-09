@@ -1,62 +1,77 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	public float speed = 20;
-	public float rotationSpeed = 60;
+	public float speed;
 	public int health;
+	public bool damage;
+	public GameObject tailPrefab;
+	public AudioClip audioDamage;
+	public AudioClip audioAddScore;
+	public int tailLength{ get; set; }
 
-	private bool touch = false;
+	private bool touch;
 	private Transform current;
-	
+	private float radiusTail;
+			
 	public void Start()
 	{
 		health = 3;
 		current = transform;
+		radiusTail = GameObject.FindGameObjectWithTag ("LevelController").GetComponent<Grid> ().radius;
 	}
 	
 	void FixedUpdate()
 	{
-		float horizontal = Input.GetAxisRaw ("Horizontal");
-		float vertical = Input.GetAxisRaw ("Vertical");
-
-		Vector3 movement = new Vector3 (horizontal, 0f, vertical);
-		if (horizontal != 0f || vertical != 0f) 
+		if( damage )
 		{
-			movement *= speed * Time.deltaTime;
-			transform.rotation = Quaternion.LookRotation (movement);
+			if (!Physics.Raycast(transform.position, transform.forward, 2*radiusTail))
+			{
+				Debug.Log("Raycast");
+				damage = false;
+			}
 		}
-		touch = true;
-		transform.position = transform.position + movement;
-	}
+	} 
 
-	void OnTriggerEnter(Collider other)
+	public void OnTriggerEnter(Collider other)
 	{
-		if (touch) 
+		if (other.gameObject.tag == "Food")
 		{
-			if (other.gameObject.tag == "Food")
-			{
-				Food food = other.gameObject.GetComponent<Food> ();
-				food.Eat ();
-				AddTail ();
-			}
-			else 
-			{
-				--health;
-			}
-			touch = false;
+			Food food = other.gameObject.GetComponent<Food> ();
+			food.Eat ();
+			PlayAddScore();
+			AddTail ();
+			speed += 0.05f;
+		}
+		else if(other.gameObject.tag != "Helper")
+		{
+			health = --health < 0 ? 0 : health;
+			PlayDamage();
+			damage = true;
 		}
 	}
 
 	public void AddTail()
 	{
-		TailController tail = GameObject.CreatePrimitive(PrimitiveType.Cube).AddComponent<TailController>();
-		tail.name = "Tail";
+		GameObject tail = Instantiate (tailPrefab) as GameObject;
 		tail.transform.position = current.position - current.forward * 2;
 		tail.transform.rotation = transform.rotation;
-		tail.target = current;
-		tail.targetDistance = 2;
+		TailController tailController = tail.GetComponent<TailController> ();
+		tailController.target = current;
+		tailController.targetDistance = 2;
 		current = tail.transform;
+		tailLength++;
+	}
+
+	public void PlayDamage()
+	{
+		audio.PlayOneShot (audioDamage);
+	}
+
+	public void PlayAddScore()
+	{
+		audio.PlayOneShot (audioAddScore);
 	}
 }

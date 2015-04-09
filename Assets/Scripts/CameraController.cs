@@ -7,40 +7,33 @@ public class CameraController : MonoBehaviour {
 
 	private Vector3 offset;
 
-	void Awake()
-	{
-	}
-
 	void Start()
 	{
 		switch (GameManager.Instance.curTCamera)
 		{
-			case typeCamera.FIRST_PERSON:
+			case typeCamera.TOP_VIEW:
 			{
-				transform.position = target.position + new Vector3(0f,2f,2f);
-				transform.rotation.SetLookRotation(new Vector3(60,0,0));
+				transform.position = new Vector3(0f,55f,-80f);
+				Quaternion target = Quaternion.Euler(40,0,0);
+				transform.rotation = target;
+				offset = Vector3.zero;
 				break;
 			}
 			case typeCamera.THIRD_PERSON:
 			{
 				transform.position = new Vector3(0,25,-30);
 				transform.rotation.SetLookRotation(new Vector3(60,0,0));
+				offset = transform.position - target.position;
 				break;
 			}
 		}
-		offset = transform.position - target.position;
 	}
 	
 	public void Update()
 	{
-		if (target != null)
+		if (target && GameManager.Instance.curTCamera == typeCamera.THIRD_PERSON)
 		{
 			transform.position = target.position + offset;
-			if( GameManager.Instance.curTCamera == typeCamera.FIRST_PERSON )
-			{
-				transform.rotation = target.rotation;
-				transform.Rotate(Vector3.right,30);
-			}
 		}
 	}
 }

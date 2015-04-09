@@ -1,12 +1,18 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CameraController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\GameController.cs" Line="31" Column="32" />
-      <File FileName="Assets\Scripts\CameraController.cs" Line="26" Column="4" />
-      <File FileName="Assets\Gamecontroller.cs" Line="1" Column="1" />
-      <File FileName="Assets\GameManager.cs" Line="12" Column="33" />
-      <File FileName="Assets\Scripts\PlayerController.cs" Line="8" Column="2" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="35" Column="30" />
+      <File FileName="Assets\Scripts\PlayerController.cs" Line="13" Column="34" />
+      <File FileName="Assets\Scripts\GameController.cs" Line="26" Column="2" />
+      <File FileName="Assets\Scripts\BaseMovementBehavior.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\IMovementState.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\CameraController.cs" Line="39" Column="2" />
+      <File FileName="Assets\Scripts\RenderGL.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Food.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\DamageScreen.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\InitEast.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MainMenu.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
