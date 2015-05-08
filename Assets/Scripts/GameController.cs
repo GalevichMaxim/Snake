@@ -2,12 +2,12 @@
 using UnityEngine.UI;
 using System.Collections;
 
+// управление игровой сценной
 public class GameController : MonoBehaviour {
 
 	public Material wallMaterial;
 	public Material gridMaterial;
 	public Material helperMaterial;
-	public int countWals;
 	public static int points;
 	public Text ScoreText;
 	public Text HealthText;
@@ -22,38 +22,49 @@ public class GameController : MonoBehaviour {
 	private int _lastPlayerHealth = -1;
 	private PlayerController playerController;
 	private GameObject player;
+	private GameObject tableScore;
+	private int countWals;
 
 	public void Start()
 	{
 		points = 0;
-		countWals = 15;
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerController = player.GetComponent<PlayerController>();
 		field = GetComponent<Grid> ();
-		GenerateLevel();
-		GenerateNewFood();
+		countWals = field.countTail * 3;							// количество преград на поле
+		GenerateLevel();											// создание преград и помощников
+		GenerateNewFood();											// создание еды
 	}
 	
 	public void Update()
 	{
-		if (playerController.health == 0 && !GameManager.Instance.gameOver)
+		// если потрачены все жизни
+		if (player && playerController.health == 0 && !GameManager.Instance.gameOver)
 		{
+			// удаляется голова змеи ( как символ смерти)
 			DestroyObject(player);
+			// останов музыки игры
 			audio.Stop();
+			// проигрывание мелодии окончания игры
 			audio.PlayOneShot(audioGameOver);
+			// запуск анимации окончания игры
 			anim.SetTrigger("GameOver");
+			GameManager.Instance.lifeCount = playerController.health;
 			GameManager.Instance.gameOver = true;
 		}
+		// если потрачена жизнь
 		if (_lastPlayerHealth != playerController.health) 
 		{
 			_lastPlayerHealth = playerController.health;
+			// изменение индикатора количества оставшихся жизней
 			HealthText.text = _lastPlayerHealth.ToString();
 		}
 		if (_lastPonts == points) return;
+		// если съедена еда,то меняется индикация очков и длины змейки
 		_lastPonts = points;
 		ScoreText.text = "Score: " + points.ToString ("0000");
 		TailText.text = "Tail length: " + playerController.tailLength.ToString ("00");
-
+		// генерируется новая еда
 		if (points > 0)
 		{ 
 			GenerateNewFood ();
@@ -75,13 +86,15 @@ public class GameController : MonoBehaviour {
 			
 			bool intersects = false;
 			
-			Collider[] objects = FindObjectsOfType(typeof(Collider)) as Collider[];
+			Collider[] objects = FindObjectsOfType(typeof(Collider)) as Collider[]; // массив объектов, имеющих коллайдер
+			// проверяется - не пересекается ли коллайдер еды с коллайдер других объектов 
 			foreach (Collider objectColiider in objects)
 			{
 				if (objectColiider != food.collider && objectColiider.gameObject.tag != "Food")
 				{
 					if (objectColiider.bounds.Intersects(foodBounds))
 					{
+						// в случае пересечения цикл повторяется и определяется новая позиция еды
 						intersects = true;
 						break;
 					}
@@ -97,14 +110,15 @@ public class GameController : MonoBehaviour {
 
 	void GenerateLevel()
 	{
-		int countHelper = countWals / 3;
+		int countHelper = countWals / 3; // 1/3 преград - это хелперы
 		for (int i = 0; i < countWals; i++)
 		{
 			GameObject wall = Instantiate(wallPrefab) as GameObject;
 			if( i < countHelper )
 			{
+				// для хелпера
 				wall.renderer.material = helperMaterial;
-				wall.tag = "Helper";
+				wall.tag = "Helper";                          
 				wall.layer = 2;
 			}
 
@@ -118,6 +132,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	// рисование гексагональных тайлов
 	public void CreatePlayField()
 	{
 		float r = field.radius;
@@ -156,6 +171,20 @@ public class GameController : MonoBehaviour {
 
 	public void OnExitBtn()
 	{
-		Application.LoadLevel ("MainMenu");
+		tableScore = GameObject.FindGameObjectWithTag ("TableScore");
+		if(tableScore)
+		{
+			Destroy (tableScore);
+			GameManager.Instance.BackToMainMenu();
+			GameManager.Instance.curPlayer = null;
+			return;
+		}
+		if(GameManager.Instance.curPlayer != null)
+		{
+			Application.LoadLevelAdditive("MainMenu");
+		}
+		GameManager.Instance.Pause = true;
+		GameManager.Instance.lifeCount = playerController.health;
+		Instantiate (GameManager.Instance.panel);
 	}
 }

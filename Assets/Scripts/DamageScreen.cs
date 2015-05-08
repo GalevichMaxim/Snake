@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
+// изображение экрана при столкновении игрока с фатальными препятствиями
 public class DamageScreen : MonoBehaviour {
 
 	public Text text;
@@ -21,8 +22,10 @@ public class DamageScreen : MonoBehaviour {
 
 	void Update () 
 	{
+		// если произошло фатальное столкновение
 		if (playerController.damage && lastHealth != playerController.health )
 		{
+			// становится видимым изображение символа жизней и их количества
 			image.color = flashColor;
 			text.text = playerController.health.ToString();
 			text.color = flashColor;

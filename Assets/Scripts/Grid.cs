@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 
+// гексогональное игровое поле
 public class Grid : MonoBehaviour {
 
 	public float radius;
@@ -14,6 +15,7 @@ public class Grid : MonoBehaviour {
 
 	private Vector3[,] grid;
 
+	// проверка индексов ячеек игрового поля
 	private bool ok( int col, int row )
 	{
 		if (col >= col_lowIndex && col <= col_highIndex && row >= row_lowIndex && row <= row_highIndex)
@@ -24,6 +26,7 @@ public class Grid : MonoBehaviour {
 		return false;
 	}
 
+	// индексатор ячеек игрового поля
 	public Vector3 this[int icol, int irow]{
 		get
 		{
@@ -31,6 +34,7 @@ public class Grid : MonoBehaviour {
 		 	{
 				return grid [icol-col_lowIndex, irow-row_lowIndex];
 		 	}
+
 			throw new IndexOutOfRangeException();
 		}
 		set
@@ -42,17 +46,18 @@ public class Grid : MonoBehaviour {
 		}
 	}
 
-	// Use this for initialization
-	void Awake () {
+	void Awake ()
+	{
 		float rowDist = 2 * radius;
 		float colDist = 2*radius/Mathf.Sqrt (3f) + radius/2;
-		row_highIndex = countTail;//Mathf.CeilToInt(50 / rowDist);
+		row_highIndex = countTail;
 		row_lowIndex = - row_highIndex;
 		col_highIndex = countTail;
 		col_lowIndex = - col_highIndex;
 		grid = new Vector3[col_highIndex - col_lowIndex + 1,row_highIndex - row_lowIndex + 1];
 		float offset;
 
+		// построение координатных точек игрового поля (центры ячеек)
 		for( int c = 0; c <= col_highIndex - col_lowIndex; ++c)
 		{
 			for( int r = 0; r <= row_highIndex - row_lowIndex; ++r)
@@ -65,12 +70,9 @@ public class Grid : MonoBehaviour {
 				grid[c,r] = new Vector3(colDist*(col_lowIndex + c),0.1f,rowDist*(row_lowIndex + r)+offset);
 			}
 		}
+
+		// определение длинны и ширины игрового поля
 		width = grid [col_highIndex - col_lowIndex, 0].x - grid [0, 0].x + 4 * radius / Mathf.Sqrt (3);
 		height = (2 * countTail + 1) * 2 * radius + radius;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
 	}
 }

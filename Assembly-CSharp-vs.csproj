@@ -47,8 +47,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\BaseMovementBehavior.cs" />
+     <Compile Include="Assets\Scripts\ButtonsAction.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\DamageScreen.cs" />
+     <Compile Include="Assets\Scripts\Drag.cs" />
      <Compile Include="Assets\Scripts\Food.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
@@ -59,10 +61,13 @@
      <Compile Include="Assets\Scripts\InitNorth.cs" />
      <Compile Include="Assets\Scripts\InitSouth.cs" />
      <Compile Include="Assets\Scripts\InitWest.cs" />
+     <Compile Include="Assets\Scripts\JoysticController.cs" />
      <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\RenderGL.cs" />
+     <Compile Include="Assets\Scripts\TableScroleController.cs" />
      <Compile Include="Assets\Scripts\TailController.cs" />
+     <Compile Include="Assets\Scripts\WallController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
  </Reference>

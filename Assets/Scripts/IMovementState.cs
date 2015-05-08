@@ -1,12 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// интерфейс состояния движения игрока
 public interface IMovementState {
 
-	void Move(GameObject entity, Vector3 input, out IMovementState nextState);
-	void nextCell (int[] currCell);
+	void Move(GameObject entity, Vector3 input, out IMovementState nextState); // определение следующего состояния
+	void nextCell (int[] currCell);											   // определение следующей ячейки
 }
 
+public class FirstPersonMovement
+{
+	public Vector2 direct {
+		get{
+			if(GameManager.Instance.curTCamera != typeCamera.TOP_VIEW)
+			{
+				return new Vector2(-1,0);
+			}
+			else
+			{
+				return new Vector2(1,1);
+			}
+		}
+	}
+}
+
+// движение вперёд
 public class ForwardMovement : IMovementState{
 
 	public void Move(GameObject obj, Vector3 input, out IMovementState nextState)
@@ -33,6 +51,7 @@ public class ForwardMovement : IMovementState{
 	
 }
 
+// движение по диогонали вправо вверх
 public class RightTopMovement : IMovementState{
 	
 	public void Move(GameObject obj, Vector3 input, out IMovementState nextState)
@@ -67,13 +86,14 @@ public class RightTopMovement : IMovementState{
 	}
 }
 
-public class RightBottomMovement : IMovementState{
+// движение по диогонали вправо вниз
+public class RightBottomMovement : FirstPersonMovement, IMovementState{
 	
 	public void Move(GameObject obj, Vector3 input, out IMovementState nextState)
 	{
 		nextState = this;
-		float h = input.x;
-		float v = input.z;
+		float h = input.x * direct.x;
+		float v = input.z * direct.y;
 
 		if (h > 0 || v > 0)
 		{
@@ -101,12 +121,13 @@ public class RightBottomMovement : IMovementState{
 	}
 }
 
-public class BottomMovement : IMovementState{
+// двжение вниз
+public class BottomMovement : FirstPersonMovement, IMovementState{
 	
 	public void Move(GameObject obj, Vector3 input, out IMovementState nextState)
 	{
 		nextState = this;
-		float h = input.x;
+		float h = input.x  * direct.x;
 				
 		if (h > 0)
 		{
@@ -126,13 +147,14 @@ public class BottomMovement : IMovementState{
 	}
 }
 
-public class LeftBottomMovement : IMovementState{
+// движение по диагонали влево вниз
+public class LeftBottomMovement : FirstPersonMovement, IMovementState{
 	
 	public void Move(GameObject obj, Vector3 input, out IMovementState nextState)
 	{
 		nextState = this;
-		float h = input.x;
-		float v = input.z;
+		float h = input.x  * direct.x;
+		float v = input.z  * direct.y;
 			
 		if (h > 0 || v < 0)
 		{
@@ -160,6 +182,7 @@ public class LeftBottomMovement : IMovementState{
 	}
 }
 
+// движение по диагонали влево вверх
 public class LeftTopMovement : IMovementState{
 	
 	public void Move(GameObject obj, Vector3 input, out IMovementState nextState)

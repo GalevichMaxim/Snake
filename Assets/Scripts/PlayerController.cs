@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
+// контроллер игрока
 public class PlayerController : MonoBehaviour {
 
 	public float speed;
@@ -18,7 +19,8 @@ public class PlayerController : MonoBehaviour {
 			
 	public void Start()
 	{
-		health = 3;
+		// если не задано количество жизней, то по умолчанию устаналивается 3
+		health = health == 0 ? 3 : health;
 		current = transform;
 		radiusTail = GameObject.FindGameObjectWithTag ("LevelController").GetComponent<Grid> ().radius;
 	}
@@ -27,10 +29,10 @@ public class PlayerController : MonoBehaviour {
 	{
 		if( damage )
 		{
+			// проверка при фатальном столкневении безопасного направления движения
 			if (!Physics.Raycast(transform.position, transform.forward, 2*radiusTail))
 			{
-				Debug.Log("Raycast");
-				damage = false;
+				damage = false; // продолжается движение в безопасном направлении
 			}
 		}
 	} 
@@ -53,6 +55,7 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	// добавление секции хвоста
 	public void AddTail()
 	{
 		GameObject tail = Instantiate (tailPrefab) as GameObject;

@@ -1,39 +1,111 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// настройка режимов камеры
 public class CameraController : MonoBehaviour {
 
-	public Transform target;
+	public Transform target;                   // объект игрока
+	public float smooth = 1.5f;				   // скорость движения камеры
 
-	private Vector3 offset;
+	private Grid grid;                         // гексогональная сетка игрового поля
+	private Vector3 offset;					   // смещение камеры относительно позиции игрока
+	private float relCameraPosMag;             // расстояние камеры от игрока
+	private Vector3 newPos;					   // новая позиция камеры
+	Vector3 cameraOffset;					   // смещение камеры
+	Vector3 lastPos;
+
+	void Awake()
+	{
+		grid = GameObject.FindGameObjectWithTag ("LevelController").GetComponent<Grid> ();
+		// добавдяем обработчик события по изменению типа камеры
+		GameManager.Instance.ChangeType += onChangeCameraType;
+	}
 
 	void Start()
 	{
+		//инициализация положения камеры
 		switch (GameManager.Instance.curTCamera)
 		{
 			case typeCamera.TOP_VIEW:
 			{
-				transform.position = new Vector3(0f,55f,-80f);
-				Quaternion target = Quaternion.Euler(40,0,0);
-				transform.rotation = target;
-				offset = Vector3.zero;
+				lastPos = new Vector3(0f,55f,-80f);
+				Quaternion angle = Quaternion.Euler(40, 0, 0);
+				transform.position = lastPos;
+				transform.rotation = angle;
 				break;
 			}
 			case typeCamera.THIRD_PERSON:
 			{
-				transform.position = new Vector3(0,25,-30);
-				transform.rotation.SetLookRotation(new Vector3(60,0,0));
-				offset = transform.position - target.position;
+				cameraOffset = new Vector3(0f,5f,30f);
+				Quaternion angle;
+				if( target == null )
+				{
+					lastPos = Vector3.back * Vector3.ProjectOnPlane(cameraOffset,Vector3.up).magnitude + Vector3.up * cameraOffset.y;
+					angle = Quaternion.Euler(10, 0, 0);
+				}
+				else{
+					lastPos = target.position - target.forward * Vector3.ProjectOnPlane(cameraOffset,Vector3.up).magnitude + Vector3.up * cameraOffset.y;
+					angle = Quaternion.Euler(10, target.rotation.y, 0);
+				}
+				angle = Quaternion.Euler(10, target.rotation.y, 0);
+				transform.position = lastPos;
+				transform.rotation = angle;
+				break;
+			}
+			case typeCamera.FIRST_PERSON:
+			{
+				Quaternion angle;
+				offset = new Vector3(0f,1.2f,0f);
+				if( target == null )
+				{
+					lastPos = offset;
+					angle = target.rotation;
+				}
+				else{
+					lastPos = offset + target.position;
+					angle = Quaternion.Euler(0,0,0);
+				}
+				transform.position = lastPos;
+				transform.rotation = angle;
 				break;
 			}
 		}
 	}
 	
-	public void Update()
+	public void FixedUpdate()
 	{
+		if(target == null)
+		{
+			return;
+		}
+
 		if (target && GameManager.Instance.curTCamera == typeCamera.THIRD_PERSON)
 		{
+			Vector3 newPos = target.position - target.forward * Vector3.ProjectOnPlane(cameraOffset,Vector3.up).magnitude + Vector3.up * cameraOffset.y;
+
+			lastPos = Vector3.Lerp(lastPos, newPos, smooth / 2f * GameManager.dt);
+			transform.position = lastPos;
+
+			// поворот камеры в направлении игрока
+			SmoothLookAt();
+		}
+
+		if (target && GameManager.Instance.curTCamera == typeCamera.FIRST_PERSON)
+		{
+			transform.rotation = Quaternion.Slerp(transform.rotation, target.rotation, smooth * GameManager.dt);
 			transform.position = target.position + offset;
 		}
 	}
+
+	void SmoothLookAt ()
+	{
+		Vector3 relPlayerPosition = target.position - lastPos;
+		Quaternion lookAtRotation = Quaternion.LookRotation(relPlayerPosition);
+		transform.rotation = lookAtRotation;
+	}
+	
+	void onChangeCameraType()
+	{
+		Start ();
+	}	
 }
