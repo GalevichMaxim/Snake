@@ -176,7 +176,6 @@ public class GameController : MonoBehaviour {
 		{
 			Destroy (tableScore);
 			GameManager.Instance.BackToMainMenu();
-			GameManager.Instance.curPlayer = null;
 			return;
 		}
 		if(GameManager.Instance.curPlayer != null)
