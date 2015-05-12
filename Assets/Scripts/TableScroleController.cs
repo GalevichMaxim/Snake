@@ -24,6 +24,7 @@ public class TableScroleController : MonoBehaviour {
 
 	public Image record;
 	public Color[] reward = new Color[4];
+	public Transform ScoreText;
 		
 	Transform recordParent;
 	ArrayList table;
@@ -40,6 +41,7 @@ public class TableScroleController : MonoBehaviour {
 		scroll = transform.Find ("Panel").Find ("ScrollField").GetComponent<ScrollRect> ();
 		table = new ArrayList ();
 		cur = GameManager.Instance.curPlayer;
+		ScoreText = GameObject.FindGameObjectWithTag("HUD").transform.FindChild("ScoreText");
 	}
 
 	void Start () 
@@ -49,8 +51,15 @@ public class TableScroleController : MonoBehaviour {
 		int score;
 		int life;
 
-		// считывание из файла
 		curIndex = 0;
+
+		if (Application.platform == RuntimePlatform.WindowsWebPlayer || Application.platform == RuntimePlatform.OSXWebPlayer)
+		{
+			table = GameManager.Instance.ParseRecords();
+			ShowTable();
+			return;
+		}
+		// считывание из файла
 		dataIn = new BinaryReader(new FileStream(Application.persistentDataPath + "/score.dat", FileMode.Open));
 		try{
 			for(;;)
@@ -71,7 +80,7 @@ public class TableScroleController : MonoBehaviour {
 	void AddRecord( Record r, int index )
 	{
 		Image rec = Instantiate(record) as Image;
-		rec.transform.SetParent(recordParent);
+		rec.transform.SetParent(recordParent,false);
 		Text recRating = rec.transform.Find ("Rating").GetComponent<Text> ();
 		Text recName = rec.transform.Find ("Name").GetComponent<Text> ();
 		recName.text = r.name;
@@ -113,10 +122,11 @@ public class TableScroleController : MonoBehaviour {
 			AddRecord( rec, i );
 			i++;
 		}
-		// установить позицию скроллинга в пределах видимости рейтинга текущего игрока
-		int countVisibleRec = Mathf.FloorToInt( scroll.content.rect.height / heightRec);
-		scroll.verticalNormalizedPosition = Mathf.Clamp01(1 - (float)(curIndex - (countVisibleRec - 1))/(scroll.content.childCount - countVisibleRec));
+		if(Application.platform != RuntimePlatform.WindowsWebPlayer && Application.platform != RuntimePlatform.OSXWebPlayer)
+		{
+			// установить позицию скроллинга в пределах видимости рейтинга текущего игрока
+			int countVisibleRec = Mathf.FloorToInt (scroll.content.rect.height / heightRec);
+			scroll.verticalNormalizedPosition = Mathf.Clamp01(1 - (float)(curIndex - (countVisibleRec - 1))/(scroll.content.childCount - countVisibleRec));
+		}
 	}
-	
-
 }
