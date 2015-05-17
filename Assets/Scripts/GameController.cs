@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour {
 	private GameObject player;
 	private GameObject tableScore;
 	private int countWals;
+	private GameObject food;
 
 	public void Start()
 	{
@@ -33,7 +34,8 @@ public class GameController : MonoBehaviour {
 		field = GetComponent<Grid> ();
 		countWals = field.countTail * 3;							// количество преград на поле
 		GenerateLevel();											// создание преград и помощников
-		GenerateNewFood();											// создание еды
+		food = Instantiate(apple) as GameObject;					// инициализация еды
+		GenerateFood();												//
 	}
 	
 	public void Update()
@@ -67,15 +69,13 @@ public class GameController : MonoBehaviour {
 		// генерируется новая еда
 		if (points > 0)
 		{ 
-			GenerateNewFood ();
+			GenerateFood();
 		}
 	}
 
 
-	public void GenerateNewFood()
+	public void GenerateFood()
 	{
-		GameObject food = Instantiate(apple) as GameObject;
-
 		while (true)
 		{
 			Vector3 pos = field[Random.Range(field.col_lowIndex, field.col_highIndex),Random.Range(field.row_lowIndex, field.row_highIndex)];
@@ -106,6 +106,7 @@ public class GameController : MonoBehaviour {
 				break;
 			}
 		}
+		food.SetActive (true);
 	}
 
 	void GenerateLevel()
@@ -185,5 +186,10 @@ public class GameController : MonoBehaviour {
 		GameManager.Instance.Pause = true;
 		GameManager.Instance.lifeCount = playerController.health;
 		Instantiate (GameManager.Instance.panel);
+	}
+
+	void NewFood()
+	{
+
 	}
 }

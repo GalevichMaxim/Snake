@@ -6,8 +6,8 @@ public class CameraController : MonoBehaviour {
 
 	public Transform target;                   // объект игрока
 	public float smooth = 1.5f;				   // скорость движения камеры
+	public Plane[] planes{ get; set; }
 
-	private Grid grid;                         // гексогональная сетка игрового поля
 	private Vector3 offset;					   // смещение камеры относительно позиции игрока
 	private float relCameraPosMag;             // расстояние камеры от игрока
 	private Vector3 newPos;					   // новая позиция камеры
@@ -16,7 +16,6 @@ public class CameraController : MonoBehaviour {
 
 	void Awake()
 	{
-		grid = GameObject.FindGameObjectWithTag ("LevelController").GetComponent<Grid> ();
 		// добавдяем обработчик события по изменению типа камеры
 		GameManager.Instance.ChangeType += onChangeCameraType;
 	}
@@ -70,6 +69,7 @@ public class CameraController : MonoBehaviour {
 				break;
 			}
 		}
+		planes = GeometryUtility.CalculateFrustumPlanes (camera);
 	}
 	
 	public void FixedUpdate()
@@ -107,5 +107,11 @@ public class CameraController : MonoBehaviour {
 	void onChangeCameraType()
 	{
 		Start ();
-	}	
+	}
+
+	void LateUpdate()
+	{
+		//определяем ограничивающие плоскости камеры
+		planes = GeometryUtility.CalculateFrustumPlanes (camera);
+	}
 }

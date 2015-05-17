@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.IO;
 using System.Linq;
 using System.Collections;
@@ -111,10 +110,7 @@ public class TableScroleController : MonoBehaviour {
 	void ShowTable()
 	{
 		// сортировка по очкам, жизням и имени
-		var request = from n in (Record[])table.ToArray(typeof(Record))
-					  orderby n.name
-			          orderby n.score descending, n.life descending
-				      select n;
+		var request = ((Record[])table.ToArray (typeof(Record))).SortByScoreLifeName ();
 
 		int i = 1;
 		foreach (Record rec in request)
@@ -125,8 +121,7 @@ public class TableScroleController : MonoBehaviour {
 		if(Application.platform != RuntimePlatform.WindowsWebPlayer && Application.platform != RuntimePlatform.OSXWebPlayer)
 		{
 			// установить позицию скроллинга в пределах видимости рейтинга текущего игрока
-			int countVisibleRec = Mathf.FloorToInt (scroll.content.rect.height / heightRec);
-			scroll.verticalNormalizedPosition = Mathf.Clamp01(1 - (float)(curIndex - (countVisibleRec - 1))/(scroll.content.childCount - countVisibleRec));
+			scroll.verticalNormalizedPosition = scroll.StartShowVerticalPosition(curIndex, heightRec);
 		}
 	}
 }

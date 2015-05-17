@@ -13,6 +13,11 @@ public class TailController : MonoBehaviour {
 		{
 			Vector3 direction = target.position - transform.position;
 
+			if( target.gameObject.name == "Head" )
+			{
+				direction -= Vector3.up * 0.5f;
+			}
+
 			float distance = direction.magnitude;
 			
 			if (distance > targetDistance)
@@ -20,6 +25,8 @@ public class TailController : MonoBehaviour {
 				transform.position += direction.normalized * (distance - targetDistance);
 
 				transform.LookAt(target);
+
+				transform.Rotate(-transform.localEulerAngles.x,0,0);
 			}
 		}
 	}

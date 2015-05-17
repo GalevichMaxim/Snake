@@ -83,7 +83,7 @@ public class BaseMovementBehavior : MonoBehaviour {
 			playerController.damage = true;
 		}
 	}
-	
+
 	public void SetMovement(IMovementState _movementType)
 	{
 		// установка состояния движения игрока

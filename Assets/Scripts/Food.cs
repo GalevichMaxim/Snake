@@ -18,7 +18,7 @@ public class Food : MonoBehaviour {
 		GameController.points += points;
 
 		// удаление еды
-		Destroy(gameObject);
+		gameObject.SetActive(false);
 
 	}
 }

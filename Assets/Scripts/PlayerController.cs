@@ -60,10 +60,14 @@ public class PlayerController : MonoBehaviour {
 	{
 		GameObject tail = Instantiate (tailPrefab) as GameObject;
 		tail.transform.position = current.position - current.forward * 2;
+		if( tailLength == 0 )
+		{
+			tail.transform.position -= Vector3.up * 0.5f;
+		}
 		tail.transform.rotation = transform.rotation;
-		TailController tailController = tail.GetComponent<TailController> ();
+		TailController tailController = tail.GetComponentInChildren<TailController> ();
 		tailController.target = current;
-		tailController.targetDistance = 2;
+		tailController.targetDistance = 2; 
 		current = tail.transform;
 		tailLength++;
 	}
