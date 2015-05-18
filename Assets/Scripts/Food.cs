@@ -9,7 +9,7 @@ public class Food : MonoBehaviour {
 	public void Update()
 	{
 		// постоянное вращение еды
-		transform.Rotate(Vector3.up, 60 * Time.deltaTime);
+		transform.Rotate(Vector3.up, 60 * GameManager.dt);
 	}
 	
 	public void Eat()

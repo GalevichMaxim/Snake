@@ -120,8 +120,7 @@ public class TableScroleController : MonoBehaviour {
 		}
 		if(Application.platform != RuntimePlatform.WindowsWebPlayer && Application.platform != RuntimePlatform.OSXWebPlayer)
 		{
-			// установить позицию скроллинга в пределах видимости рейтинга текущего игрока
 			scroll.verticalNormalizedPosition = scroll.StartShowVerticalPosition(curIndex, heightRec);
 		}
-	}
+	}	
 }

@@ -51,6 +51,7 @@ public class BaseMovementBehavior : MonoBehaviour {
 				movement = Vector3.zero;
 				movement.x = h;
 				movement.z = v;
+				Input.ResetInputAxes();
 			}
 			if(playerController.damage)       // при фатальном столкновении
 			{
@@ -70,7 +71,6 @@ public class BaseMovementBehavior : MonoBehaviour {
 				target = grid [index[0], index[1]];
 				curIndex[0] = index[0];          // если цель находится в пределах игрового поля,
 				curIndex[1] = index[1];			 // то запоминаем её координаты как действительные
-				Input.ResetInputAxes();
 				movement = Vector3.zero;
 			}
 		}
