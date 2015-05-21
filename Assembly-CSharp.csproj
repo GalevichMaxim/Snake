@@ -70,6 +70,7 @@
      <Compile Include="Assets\Scripts\TailController.cs" />
      <Compile Include="Assets\Scripts\WallController.cs" />
      <Compile Include="Assets\Scripts\WallCulling.cs" />
+     <None Include="Assets\Materials\Snake.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
  </Reference>

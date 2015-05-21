@@ -1,0 +1,50 @@
+Base path: C:/Program Files (x86)/Unity/Editor/Data
+Pipe name: \\.\pipe\UnityShaderCompiler-1-7588
+Cmd: getPlatforms
+Cmd: preprocess
+  insize=2407 outsize=292 ok=1
+Cmd: preprocess
+  insize=295552 outsize=295552 ok=1
+Cmd: preprocess
+  insize=310253 outsize=310253 ok=1
+Cmd: preprocess
+  insize=284076 outsize=284076 ok=1
+Cmd: preprocess
+  insize=278860 outsize=278860 ok=1
+Cmd: preprocess
+  insize=306593 outsize=306593 ok=1
+Cmd: preprocess
+  insize=282429 outsize=282429 ok=1
+Cmd: preprocess
+  insize=304928 outsize=304928 ok=1
+Cmd: preprocess
+  insize=311876 outsize=311876 ok=1
+Cmd: preprocess
+  insize=301298 outsize=301298 ok=1
+Cmd: preprocess
+  insize=228363 outsize=228363 ok=1
+Cmd: preprocess
+  insize=273045 outsize=273045 ok=1
+Cmd: preprocess
+  insize=2428 outsize=292 ok=1
+Cmd: compileSnippet
+  error: 2 plat 4 at (43): undeclared identifier 'Debug'
+  api=4 type=0 insize=2433 outsize=0 kw= ok=0
+Cmd: preprocess
+  insize=1964 outsize=291 ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=1969 outsize=1940 kw= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=1969 outsize=2111 kw= ok=1
+Cmd: preprocess
+  insize=1964 outsize=291 ok=1
+Cmd: preprocess
+  insize=1964 outsize=291 ok=1
+Cmd: preprocess
+  insize=1964 outsize=291 ok=1
+Cmd: preprocess
+  insize=1964 outsize=291 ok=1
+Cmd: preprocess
+  insize=1966 outsize=293 ok=1
+Cmd: preprocess
+  insize=1964 outsize=291 ok=1
