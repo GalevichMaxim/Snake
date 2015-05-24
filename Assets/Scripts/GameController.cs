@@ -145,23 +145,23 @@ public class GameController : MonoBehaviour {
 		for( int ic = field.col_lowIndex; ic <= field.col_highIndex; ic++ )
 			for(int ir = field.row_lowIndex; ir <= field.row_highIndex; ir++ )
 			{
-				GL.Vertex(field[ic, ir] + new Vector3(-r/2,-1,r));
-				GL.Vertex(field[ic, ir] + new Vector3(r/2,-1,r));
+				GL.Vertex(field[ic, ir] + new Vector3(-r/2,-0.9f,r));
+			GL.Vertex(field[ic, ir] + new Vector3(r/2,-0.9f,r));
 
-				GL.Vertex(field[ic, ir] + new Vector3(r/2,-1,r));
-				GL.Vertex(field[ic, ir] + new Vector3(R,-1,0));
+				GL.Vertex(field[ic, ir] + new Vector3(r/2,-0.9f,r));
+			GL.Vertex(field[ic, ir] + new Vector3(R,-0.9f,0));
 
-				GL.Vertex(field[ic, ir] + new Vector3(R,-1,0));
-				GL.Vertex(field[ic, ir] + new Vector3(r/2,-1,-r));
+				GL.Vertex(field[ic, ir] + new Vector3(R,-0.9f,0));
+			GL.Vertex(field[ic, ir] + new Vector3(r/2,-0.9f,-r));
 
-				GL.Vertex(field[ic, ir] + new Vector3(r/2,-1,-r));
-				GL.Vertex(field[ic, ir] + new Vector3(-r/2,-1,-r));
+			GL.Vertex(field[ic, ir] + new Vector3(r/2,-0.9f,-r));
+			GL.Vertex(field[ic, ir] + new Vector3(-r/2,-0.9f,-r));
 
-				GL.Vertex(field[ic, ir] + new Vector3(-r/2,-1,-r));
-				GL.Vertex(field[ic, ir] + new Vector3(-R,-1,0));
+			GL.Vertex(field[ic, ir] + new Vector3(-r/2,-0.9f,-r));
+			GL.Vertex(field[ic, ir] + new Vector3(-R,-0.9f,0));
 
-				GL.Vertex(field[ic, ir] + new Vector3(-R,-1,0));
-				GL.Vertex(field[ic, ir] + new Vector3(-r/2,-1,r));
+			GL.Vertex(field[ic, ir] + new Vector3(-R,-0.9f,0));
+			GL.Vertex(field[ic, ir] + new Vector3(-r/2,-0.9f,r));
 			}
 
 		GL.End ();

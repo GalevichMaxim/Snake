@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 
 // движение игрока
@@ -13,7 +13,7 @@ public class BaseMovementBehavior : MonoBehaviour {
 	private float speed;
 	Vector3 target;                           // координаты цели движения игрока
 	Vector3 movement;						  // вектор команды направления движения игрока
-	int[] index;
+	int[] index = {0,1};
 	int[] curIndex;
 	float fract;
 	FirstPersonMovement firstPerson;
@@ -25,7 +25,6 @@ public class BaseMovementBehavior : MonoBehaviour {
 		playerController = GetComponent<PlayerController> ();
 		joysticController = joystic.GetComponent<JoysticController> (); // определяем контроллер джойстика
 		movementType = new ForwardMovement ();
-		index = new int[2];
 		curIndex = new int[2];
 		target = grid [0, 1];
 		movement = Vector2.zero;             // начальное положение игрока - без движения

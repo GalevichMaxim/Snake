@@ -46,26 +46,19 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Animated Emission Shaders\Standard Assets\Character Controllers\Sources\Scripts\CharacterMotor.js" />
-     <Compile Include="Assets\Animated Emission Shaders\Standard Assets\Character Controllers\Sources\Scripts\FPSInputController.js" />
-     <Compile Include="Assets\Animated Emission Shaders\Standard Assets\Character Controllers\Sources\Scripts\PlatformInputController.js" />
-     <Compile Include="Assets\Animated Emission Shaders\Standard Assets\Character Controllers\Sources\Scripts\ThirdPersonCamera.js" />
-     <Compile Include="Assets\Animated Emission Shaders\Standard Assets\Character Controllers\Sources\Scripts\ThirdPersonController.js" />
-     <None Include="Assets\Animated Emission Shaders\Shader\Animated\Emission\Compiled-Emission.shader" />
-     <None Include="Assets\Animated Emission Shaders\Shader\Animated\Emission\Compiled-Diffuse-nm-spec-emi.shader" />
+     <Compile Include="Assets\Show UV Mapping\ShowUVMapping.js" />
      <None Include="Assets\Materials\Snake.shader" />
-     <None Include="Assets\Animated Emission Shaders\Shader\Animated\Emission\Compiled-Diffuse-nm-emi.shader" />
-     <None Include="Assets\Animated Emission Shaders\Shader\Animated\Diffuse\Compiled-Diffuse-nm-spec.shader" />
-     <None Include="Assets\Animated Emission Shaders\Shader\Animated\Diffuse\Compiled-Diffuse-spec.shader" />
-     <None Include="Assets\Animated Emission Shaders\Shader\Animated\Diffuse\Compiled-Diffuse-nm.shader" />
-     <None Include="Assets\Animated Emission Shaders\Shader\Animated\Emission\Compiled-Diffuse-emi.shader" />
-     <None Include="Assets\Animated Emission Shaders\Shader\Animated\Self-Emission\Compiled-Diffuse-emi.shader" />
-     <None Include="Assets\Animated Emission Shaders\Shader\Animated\Diffuse\Compiled-Diffuse.shader" />
-     <None Include="Assets\Animated Emission Shaders\Shader\Animated\Self-Emission\Compiled-Diffuse-nm-spec-emi.shader" />
-     <None Include="Assets\Animated Emission Shaders\Shader\Animated\Self-Emission\Compiled-Diffuse-nm-emi.shader" />
+     <None Include="Assets\Show UV Mapping\ShowUVMapping.shader" />
+ <Reference Include="Assembly-UnityScript-firstpass">
+ <HintPath>C:/Users/Максим/Documents/GitHub/GitRepository/Snake/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
+      <Project>{98DB7199-805A-2693-E2DF-1246E229D7DF}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
