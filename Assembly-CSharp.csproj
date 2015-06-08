@@ -46,11 +46,13 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\SceneCulling.cs" />
      <Compile Include="Assets\Scripts\BaseMovementBehavior.cs" />
      <Compile Include="Assets\Scripts\ButtonsAction.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\DamageScreen.cs" />
      <Compile Include="Assets\Scripts\Drag.cs" />
+     <Compile Include="Assets\Scripts\EventSystemController.cs" />
      <Compile Include="Assets\Scripts\Food.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
@@ -63,6 +65,7 @@
      <Compile Include="Assets\Scripts\InitWest.cs" />
      <Compile Include="Assets\Scripts\JoysticController.cs" />
      <Compile Include="Assets\Scripts\MainMenu.cs" />
+     <Compile Include="Assets\Scripts\OnInit.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\RenderGL.cs" />
      <Compile Include="Assets\Scripts\TableScore.cs" />

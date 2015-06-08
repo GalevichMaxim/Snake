@@ -181,7 +181,7 @@ public class GameController : MonoBehaviour {
 		}
 		if(GameManager.Instance.curPlayer != null)
 		{
-			Application.LoadLevelAdditive("MainMenu");
+			GameManager.Instance.BackToMainMenu();
 		}
 		GameManager.Instance.Pause = true;
 		GameManager.Instance.lifeCount = playerController.health;

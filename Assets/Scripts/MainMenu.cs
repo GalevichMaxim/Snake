@@ -54,5 +54,13 @@ public class MainMenu : MonoBehaviour {
 	{
 		Application.Quit ();
 	}
+
+	void OnDestroy()
+	{
+		if(GameManager.Instance && GameManager.Instance.HUD)
+		{
+			GameManager.Instance.HUD.SetActive (true);
+		}
+	}
 }
 	

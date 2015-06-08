@@ -30,12 +30,13 @@ public class ButtonsAction : MonoBehaviour {
 	{
 		if(GameManager.Instance.gameOver)
 		{
+			GameManager.Instance.gameOver = false;
 			Application.LoadLevel ("MainMenu");
 		}
 		else
 		{
 			Destroy (transform.parent.gameObject);
-			Application.LoadLevelAdditive("MainMenu");
+			GameManager.Instance.BackToMainMenu();
 		}
 	}
 

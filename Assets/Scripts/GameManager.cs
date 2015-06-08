@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
 	public int lifeCount{ get; set; }
 	public Record curPlayer = null;
 	public bool Pause { get; set; }
+	public GameObject HUD;
 
 	public static float dt;
 
@@ -76,7 +77,6 @@ public class GameManager : MonoBehaviour {
 					UpdateSaveScore();
 					Instantiate(tableScore);
 				}
-				gameOver = false;
 				curPlayer = null;
 			}
 		}
@@ -183,6 +183,10 @@ public class GameManager : MonoBehaviour {
 
 	public void BackToMainMenu()
 	{
+		if( HUD != null )
+		{
+			HUD.SetActive(false);
+		}
 		Application.LoadLevelAdditive ("MainMenu");
 	}
 	
@@ -231,5 +235,5 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 		return tableRec;
-	}
+	}	
 }
